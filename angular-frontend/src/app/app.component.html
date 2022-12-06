@@ -1,0 +1,46 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>Heitor's_TODO</h1>
+    <input
+      class="new-todo"
+      placeholder="O que precisa ser feito?"
+      autofocus=""
+      [(ngModel)]="newTodo.name"
+      (keyup.enter)="addTodo()"
+    />
+  </header>
+
+  <div *ngIf="todos$ | async as todos">
+    <section class="main">
+      <ul class="todo-list">
+        <li *ngFor="let todo of todos" [class.completed]="todo.status">
+          <div class="view">
+            <input
+              class="toggle"
+              type="checkbox"
+              (click)="toggleTodoStatus(todo)"
+              [checked]="todo.status"
+            />
+            <input class="item"
+             [(ngModel)]="todo.name"
+             (value)="todo.name"
+             (keyup.enter)="Save(todo)"
+            />
+            <!-- <label
+              (click)="toggleTodoStatus(todo)"
+            >
+               {{ todo.name }}
+            </label> -->
+            <button class="destroy" (click)="removeTodo(todo)"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <footer class="footer" *ngIf="todos.length > 0">
+      <span class="todo-count"
+        ><strong>{{ todos.length }}</strong>
+        {{ todos.length == 1 ? "item restante" : "itens restantes" }} </span
+      >
+    </footer>
+  </div>
+</section>
